@@ -7,8 +7,6 @@
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <name>rough-shop</name>
-  <url>http://maven.apache.org</url>
   <modules>
     <module>rough-shop-common</module>
     <module>rough-shop-manager</module>
@@ -22,11 +20,10 @@
 </parent>
 
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <mysql.verison>8.0.33</mysql.verison>
+    <mysql.verison>8.0.30</mysql.verison>
     <fastjson.version>2.0.21</fastjson.version>
     <lombok.version>1.18.20</lombok.version>
     <mybatis.version>3.0.1</mybatis.version>
@@ -61,11 +58,5 @@
       <version>${lombok.version}</version>
     </dependency>
 
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
-    </dependency>
   </dependencies>
 </project>
