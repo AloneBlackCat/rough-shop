@@ -1,7 +1,7 @@
-package com.atguigu.spzx.model.vo.h5;
+package com.zhang.model.vo.h5;
 
-import com.atguigu.spzx.model.entity.product.Category;
-import com.atguigu.spzx.model.entity.product.ProductSku;
+import com.zhang.model.entity.product.Category;
+import com.zhang.model.entity.product.ProductSku;
 import lombok.Data;
 
 import java.util.List;

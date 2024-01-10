@@ -1,4 +1,4 @@
-package com.atguigu.spzx.model.entity.base;
+package com.zhang.model.entity.base;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

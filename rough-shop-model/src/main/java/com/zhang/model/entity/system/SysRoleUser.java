@@ -1,6 +1,6 @@
-package com.atguigu.spzx.model.entity.system;
+package com.zhang.model.entity.system;
 
-import com.atguigu.spzx.model.entity.base.BaseEntity;
+import com.zhang.model.entity.base.BaseEntity;
 import lombok.Data;
 
 @Data

@@ -1,4 +1,4 @@
-package com.atguigu.spzx.model.vo.common;
+package com.zhang.model.vo.common;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
@@ -32,7 +32,7 @@ public class Result<T> {
     }
 
     // 通过枚举构造Result对象
-    public static <T> Result build(T body , ResultCodeEnum resultCodeEnum) {
+    public static <T> Result build(T body , com.atguigu.spzx.model.vo.common.ResultCodeEnum resultCodeEnum) {
         return build(body , resultCodeEnum.getCode() , resultCodeEnum.getMessage()) ;
     }
 

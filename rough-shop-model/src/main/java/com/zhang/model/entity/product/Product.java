@@ -1,6 +1,6 @@
-package com.atguigu.spzx.model.entity.product;
+package com.zhang.model.entity.product;
 
-import com.atguigu.spzx.model.entity.base.BaseEntity;
+import com.zhang.model.entity.base.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -57,7 +57,7 @@ public class Product extends BaseEntity {
 	private String category3Name;			// 三级分类
 
 	@Schema(description = "sku列表集合")
-	private List<ProductSku> productSkuList;		// sku列表集合
+	private List<com.atguigu.spzx.model.entity.product.ProductSku> productSkuList;		// sku列表集合
 
 	@Schema(description = "图片详情列表")
 	private String detailsImageUrls;				// 图片详情列表

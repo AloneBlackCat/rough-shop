@@ -1,4 +1,4 @@
-package com.atguigu.spzx.model.vo.order;
+package com.zhang.model.vo.order;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

@@ -1,4 +1,4 @@
-package com.atguigu.spzx.model.dto.product;
+package com.zhang.model.dto.product;
 
 import lombok.Data;
 

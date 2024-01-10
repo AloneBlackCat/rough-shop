@@ -1,8 +1,8 @@
-package com.atguigu.spzx.model.vo.h5;
+package com.zhang.model.vo.h5;
 
 import com.alibaba.fastjson.JSONArray;
-import com.atguigu.spzx.model.entity.product.Product;
-import com.atguigu.spzx.model.entity.product.ProductSku;
+import com.zhang.model.entity.product.Product;
+import com.zhang.model.entity.product.ProductSku;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

@@ -1,6 +1,6 @@
-package com.atguigu.spzx.model.entity.order;
+package com.zhang.model.entity.order;
 
-import com.atguigu.spzx.model.entity.base.BaseEntity;
+import com.zhang.model.entity.base.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
@@ -84,6 +84,6 @@ public class OrderInfo extends BaseEntity {
 	private String cancelReason;
 
 	@Schema(description = "订单项列表")
-	private List<OrderItem> orderItemList;
+	private List<com.atguigu.spzx.model.entity.order.OrderItem> orderItemList;
 
 }

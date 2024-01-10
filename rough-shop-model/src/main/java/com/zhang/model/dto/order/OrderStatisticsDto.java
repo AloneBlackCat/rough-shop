@@ -1,4 +1,4 @@
-package com.atguigu.spzx.model.dto.order;
+package com.zhang.model.dto.order;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;

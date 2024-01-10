@@ -1,6 +1,6 @@
-package com.atguigu.spzx.model.vo.h5;
+package com.zhang.model.vo.h5;
 
-import com.atguigu.spzx.model.entity.order.OrderItem;
+import com.zhang.model.entity.order.OrderItem;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

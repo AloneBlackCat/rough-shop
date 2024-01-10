@@ -1,6 +1,6 @@
-package com.atguigu.spzx.model.entity.order;
+package com.zhang.model.entity.order;
 
-import com.atguigu.spzx.model.entity.base.BaseEntity;
+import com.zhang.model.entity.base.BaseEntity;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 

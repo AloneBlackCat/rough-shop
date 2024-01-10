@@ -1,4 +1,4 @@
-package com.atguigu.spzx.model.dto.h5;
+package com.zhang.model.dto.h5;
 
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
