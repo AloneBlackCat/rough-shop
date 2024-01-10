@@ -57,7 +57,7 @@ public class Product extends BaseEntity {
 	private String category3Name;			// 三级分类
 
 	@Schema(description = "sku列表集合")
-	private List<com.atguigu.spzx.model.entity.product.ProductSku> productSkuList;		// sku列表集合
+	private List<com.zhang.model.entity.product.ProductSku> productSkuList;		// sku列表集合
 
 	@Schema(description = "图片详情列表")
 	private String detailsImageUrls;				// 图片详情列表

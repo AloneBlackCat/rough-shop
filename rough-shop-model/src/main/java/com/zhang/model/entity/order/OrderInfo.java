@@ -84,6 +84,6 @@ public class OrderInfo extends BaseEntity {
 	private String cancelReason;
 
 	@Schema(description = "订单项列表")
-	private List<com.atguigu.spzx.model.entity.order.OrderItem> orderItemList;
+	private List<com.zhang.model.entity.order.OrderItem> orderItemList;
 
 }
