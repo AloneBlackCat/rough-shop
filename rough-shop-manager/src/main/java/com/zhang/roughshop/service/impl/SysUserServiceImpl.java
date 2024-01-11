@@ -1,7 +1,9 @@
 package com.zhang.roughshop.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
 import com.zhang.model.dto.system.LoginDto;
+import com.zhang.model.entity.common.RedisKeyEnum;
 import com.zhang.model.entity.system.SysUser;
 import com.zhang.model.vo.common.ResultCodeEnum;
 import com.zhang.model.vo.system.LoginVo;
@@ -26,6 +28,19 @@ public class SysUserServiceImpl implements SysUserService {
 
     @Override
     public LoginVo login(LoginDto loginDto) {
+
+        // 获取输入的验证码和存储到redis的key
+        String captcha = loginDto.getCaptcha();
+        String codeKey = loginDto.getCodeKey();
+        // 根据key,获取redis中存储的验证码
+        String redisCode = redisTemplate.opsForValue().get(RedisKeyEnum.USER_VALIDATE + codeKey);
+        // 比较验证码是否一致
+        // 不一致,提示用户,校验失败
+        if (StrUtil.isEmpty(redisCode) || !StrUtil.equalsIgnoreCase(redisCode,captcha)) {
+            throw new RoughException(ResultCodeEnum.VALIDATECODE_ERROR);
+        }
+        // 一致,删除redis中的验证码
+        redisTemplate.delete(RedisKeyEnum.USER_VALIDATE + codeKey);
         // 1. 获取提交用户名
         String userName = loginDto.getUserName();
         // 2. 根据用户名查询数据库表sys_user表
@@ -49,7 +64,7 @@ public class SysUserServiceImpl implements SysUserService {
         // 7. 把token放在redis中
         // key : token value : sysUser
         redisTemplate.opsForValue()
-                .set("user:login" + token,
+                .set(RedisKeyEnum.USER_LOGIN + token,
                         JSON.toJSONString(sysUser),
                         7,
                         TimeUnit.DAYS);
@@ -57,5 +72,11 @@ public class SysUserServiceImpl implements SysUserService {
         LoginVo loginVo = new LoginVo();
         loginVo.setToken(token);
         return loginVo;
+    }
+
+    @Override
+    public SysUser getUserInfo(String token) {
+        String userJson = redisTemplate.opsForValue().get(RedisKeyEnum.USER_LOGIN + token);
+        return JSON.parseObject(userJson, SysUser.class);
     }
 }
