@@ -8,9 +8,9 @@ import com.zhang.model.vo.system.LoginVo;
 import com.zhang.model.vo.system.ValidateCodeVo;
 import com.zhang.roughshop.service.SysUserService;
 import com.zhang.roughshop.service.ValidateCodeService;
+import com.zhang.roughshop.utils.AuthContextUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,12 +41,26 @@ public class IndexController {
 
     @Operation(summary = "获取用户信息")
     @GetMapping("/getUserInfo")
+    public Result getUserInfo() {
+        // 返回用户信息
+        return Result.build(AuthContextUtil.get(),ResultCodeEnum.SUCCESS);
+    }
+
+   /** @Operation(summary = "获取用户信息")
+    @GetMapping("/getUserInfo")
     public Result getUserInfo(@RequestHeader(name = "token") String token) {
         // 从请求头中获取token
         // 根据redis查询用户信息
         SysUser sysUser = sysUserService.getUserInfo(token);
         // 返回用户信息
         return Result.build(sysUser,ResultCodeEnum.SUCCESS);
+    }*/
+
+    @Operation(summary = "退出登录")
+    @GetMapping("/logout")
+    public Result logout(@RequestHeader(name = "token") String token) {
+        sysUserService.logout(token);
+        return Result.build(null,ResultCodeEnum.SUCCESS);
     }
 
 }
