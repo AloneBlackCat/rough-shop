@@ -1,4 +1,4 @@
-package com.zhang.roughshop.common;
+package com.zhang.roughshop.common.config;
 
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;

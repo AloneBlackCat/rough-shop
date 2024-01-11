@@ -3,7 +3,9 @@ package com.zhang.roughshop.service.impl;
 import com.alibaba.fastjson.JSON;
 import com.zhang.model.dto.system.LoginDto;
 import com.zhang.model.entity.system.SysUser;
+import com.zhang.model.vo.common.ResultCodeEnum;
 import com.zhang.model.vo.system.LoginVo;
+import com.zhang.roughshop.common.exception.RoughException;
 import com.zhang.roughshop.mapper.SysUserMapper;
 import com.zhang.roughshop.service.SysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +32,8 @@ public class SysUserServiceImpl implements SysUserService {
         SysUser sysUser = sysUserMapper.selectUserInfoByUsername(userName);
         // 3. 查询是否有对应数据
         if (sysUser == null) {
-            throw new RuntimeException("用户名不存在");
+            // throw new RuntimeException("用户名不存在");
+            throw new RoughException(ResultCodeEnum.LOGIN_ERROR);
         }
         // 4. 获取到用户信息
         // 5. 对输入的密码进行加密,对比密码是否一致
@@ -38,7 +41,8 @@ public class SysUserServiceImpl implements SysUserService {
         String database_password = sysUser.getPassword();
         // 比较
         if (!input_password.equals(database_password)) {
-            throw new RuntimeException("密码不正确");
+            // throw new RuntimeException("密码不正确");
+            throw new RoughException(ResultCodeEnum.LOGIN_ERROR);
         }
         // 6. 登录成功,生成用户唯一token
         String token = UUID.randomUUID().toString().replaceAll("-", "");
