@@ -5,10 +5,13 @@
 <mapper namespace="com.zhang.roughshop.mapper.SysUserMapper">
 
     <sql id="columns">
-        id,username userName ,password,name,phone,avatar,description,status,create_time,update_time,is_deleted
+        id
+        ,username userName ,password,name,phone,avatar,description,status,create_time,update_time,is_deleted
     </sql>
 
     <select id="selectUserInfoByUsername" resultType="com.zhang.model.entity.system.SysUser">
-        SELECT  <include refid="columns" /> FROM sys_user WHERE username=#{userName}
+        SELECT
+        <include refid="columns"/>
+        FROM sys_user WHERE username=#{userName}
     </select>
 </mapper>
