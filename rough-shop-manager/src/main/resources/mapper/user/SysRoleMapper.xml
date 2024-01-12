@@ -11,6 +11,15 @@
     <sql id="columns">
         id,role_name,role_code,description,create_time,update_time,is_deleted
     </sql>
+    <insert id="addRole">
+        INSERT INTO sys_role (
+            <if test="description != null and description != ''">description,</if>
+            role_name,role_code
+        ) VALUES (
+            <if test="description != null and description != ''">#{description},</if>
+            #{roleName},#{roleCode}
+        )
+    </insert>
 
     <!--角色列表-->
     <select id="findByPage" resultMap="sysRoleMap">

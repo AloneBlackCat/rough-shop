@@ -26,4 +26,9 @@ public class SysRoleServiceImpl implements SysRoleService {
         // 封装pageInfo对象
         return new PageInfo<>(list);
     }
+
+    @Override
+    public void addRole(SysRole sysRole) {
+        sysRoleMapper.addRole(sysRole);
+    }
 }

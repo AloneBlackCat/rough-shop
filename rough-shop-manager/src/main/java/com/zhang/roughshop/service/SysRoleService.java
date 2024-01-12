@@ -6,4 +6,6 @@ import com.zhang.model.entity.system.SysRole;
 
 public interface SysRoleService {
     PageInfo<SysRole> findByPage(SysRoleDto sysRoleDto, Integer current, Integer limit);
+
+    void addRole(SysRole sysRole);
 }
