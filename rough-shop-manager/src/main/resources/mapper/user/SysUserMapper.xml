@@ -9,9 +9,62 @@
         ,username userName ,password,name,phone,avatar,description,status,create_time,update_time,is_deleted
     </sql>
 
+    <insert id="addSysUser">
+        INSERT INTO sys_user(username, password, name, phone, avatar, description, status)
+        VALUES (#{userName}, #{password}, #{name}, #{phone}, #{avatar}, #{description}, #{status})
+    </insert>
+
+    <update id="updateSysUser">
+        UPDATE sys_user SET
+        <if test="userName != null and userName != ''">
+            username = #{userName},
+        </if>
+        <if test="password != null and password != ''">
+            password = #{password},
+        </if>
+        <if test="name != null and name != ''">
+            name = #{name},
+        </if>
+        <if test="phone != null and phone != ''">
+            phone = #{phone},
+        </if>
+        <if test="description != null and description != ''">
+            description = #{description},
+        </if>
+        <if test="status != null and status != ''">
+            status = #{status},
+        </if>
+        update_time = now()
+        WHERE
+        id = #{id}
+    </update>
+    <delete id="deleteById">
+        UPDATE sys_user SET is_deleted = 1 WHERE id = #{sysUserId}
+    </delete>
+
     <select id="selectUserInfoByUsername" resultType="com.zhang.model.entity.system.SysUser">
         SELECT
         <include refid="columns"/>
-        FROM sys_user WHERE username=#{userName}
+        FROM sys_user
+        WHERE username = #{userName} AND is_deleted = 0
+    </select>
+
+    <select id="findByPage" resultType="com.zhang.model.entity.system.SysUser">
+        SELECT
+        <include refid="columns"/>
+        FROM sys_user
+        <where>
+            AND is_deleted = 0
+            <if test="keyword != null and keyword != ''">
+                AND username LIKE concat('%',#{keyword},'%')
+            </if>
+            <if test="createTimeBegin != null and createTimeBegin != ''">
+                AND create_time >= #{createTimeBegin}
+            </if>
+            <if test="createTimeEnd != null and createTimeEnd != ''">
+                AND create_time &lt;= #{createTimeEnd}
+            </if>
+        </where>
+        ORDER BY id DESC
     </select>
 </mapper>

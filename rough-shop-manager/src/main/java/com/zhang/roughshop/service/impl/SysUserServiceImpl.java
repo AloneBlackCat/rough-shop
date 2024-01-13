@@ -2,7 +2,10 @@ package com.zhang.roughshop.service.impl;
 
 import cn.hutool.core.util.StrUtil;
 import com.alibaba.fastjson.JSON;
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.zhang.model.dto.system.LoginDto;
+import com.zhang.model.dto.system.SysUserDto;
 import com.zhang.model.entity.common.RedisKeyEnum;
 import com.zhang.model.entity.system.SysUser;
 import com.zhang.model.vo.common.ResultCodeEnum;
@@ -10,11 +13,13 @@ import com.zhang.model.vo.system.LoginVo;
 import com.zhang.roughshop.common.exception.RoughException;
 import com.zhang.roughshop.mapper.SysUserMapper;
 import com.zhang.roughshop.service.SysUserService;
+import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.util.DigestUtils;
 
+import java.util.List;
 import java.util.UUID;
 import java.util.concurrent.TimeUnit;
 
@@ -83,5 +88,41 @@ public class SysUserServiceImpl implements SysUserService {
     @Override
     public void logout(String token) {
         redisTemplate.delete(RedisKeyEnum.USER_LOGIN + token);
+    }
+
+    @Override
+    public PageInfo<SysUser> findByPage(Integer pageNum, Integer pageSize, SysUserDto sysUserDto) {
+        PageHelper.startPage(pageNum,pageSize);
+        List<SysUser> list = sysUserMapper.findByPage(sysUserDto);
+        return new PageInfo<>(list);
+    }
+
+    @Override
+    public void addSysUser(@NotNull SysUser sysUser) {
+        // 判断用户名不能重复
+        SysUser dbSysUser = sysUserMapper.selectUserInfoByUsername(sysUser.getUserName());
+        if (dbSysUser != null) {
+            throw new RoughException(ResultCodeEnum.USER_NAME_IS_EXISTS);
+        }
+        // 密码加密
+        String md5_password = DigestUtils.md5DigestAsHex(sysUser.getPassword().getBytes());
+        sysUser.setPassword(md5_password);
+
+        sysUserMapper.addSysUser(sysUser);
+    }
+
+    @Override
+    public void updateSysUser(@NotNull SysUser sysUser) {
+        // 判断用户名不能重复
+        SysUser dbSysUser = sysUserMapper.selectUserInfoByUsername(sysUser.getUserName());
+        if (dbSysUser != null) {
+            throw new RoughException(ResultCodeEnum.USER_NAME_IS_EXISTS);
+        }
+        sysUserMapper.updateSysUser(sysUser);
+    }
+
+    @Override
+    public void deleteById(Integer sysUserId) {
+        sysUserMapper.deleteById(sysUserId);
     }
 }
