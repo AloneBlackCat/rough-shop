@@ -5,28 +5,52 @@
 <mapper namespace="com.zhang.roughshop.mapper.SysRoleMapper">
 
     <!--  映射查询到的字段 -->
-    <resultMap id="sysRoleMap" type="com.zhang.model.entity.system.SysRole" autoMapping="true" />
+    <resultMap id="sysRoleMap" type="com.zhang.model.entity.system.SysRole" autoMapping="true"/>
 
     <!-- 用于select查询公用抽取的列 -->
     <sql id="columns">
-        id,role_name,role_code,description,create_time,update_time,is_deleted
+        id
+        ,role_name,role_code,description,create_time,update_time,is_deleted
     </sql>
     <insert id="addRole">
         INSERT INTO sys_role (
-            <if test="description != null and description != ''">description,</if>
-            role_name,role_code
+        <if test="description != null and description != ''">description,</if>
+        role_name,role_code
         ) VALUES (
-            <if test="description != null and description != ''">#{description},</if>
-            #{roleName},#{roleCode}
+        <if test="description != null and description != ''">#{description},</if>
+        #{roleName},#{roleCode}
         )
     </insert>
+
+    <update id="updateRole">
+        UPDATE sys_role SET
+        <if test="roleName != null and roleName != ''">
+            role_name = #{roleName},
+        </if>
+        <if test="roleCode != null and roleCode != ''">
+            role_code = #{roleCode},
+        </if>
+        <if test="description != null and description != ''">
+            description = #{description},
+        </if>
+        update_time = now()
+        WHERE
+        id = #{id}
+    </update>
+
+    <update id="delRole">
+        UPDATE sys_role
+        SET is_deleted = 1
+        WHERE id = #{roleId}
+    </update>
 
     <!--角色列表-->
     <select id="findByPage" resultMap="sysRoleMap">
         SELECT
-            <include refid="columns" />
+        <include refid="columns"/>
         FROM sys_role
         <where>
+            is_deleted = 0
             <if test="roleName != null and roleName != ''">
                 AND role_name LIKE concat('%',#{roleName},'%')
             </if>

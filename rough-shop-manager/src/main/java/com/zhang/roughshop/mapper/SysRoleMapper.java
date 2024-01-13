@@ -12,4 +12,8 @@ public interface SysRoleMapper {
     List<SysRole> findByPage(SysRoleDto sysRoleDto);
 
     void addRole(SysRole sysRole);
+
+    void updateRole(SysRole sysRole);
+
+    void delRole(Long roleId);
 }
